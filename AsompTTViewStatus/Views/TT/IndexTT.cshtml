@@ -1,0 +1,98 @@
+﻿@model IndexViewModel
+@addTagHelper *, AsompTTViewStatus
+
+<h1>Asomp -> TT</h1>
+
+<form method="post" asp-controller="TT" asp-action="IndexTT">
+    <label>Id пакету</label>
+    <input type="text" name="fileId" class="form-control" />
+    @* @Html.TextBox("fileId",new { @class="form-control" })*@
+
+    <label>ШКІ</label>
+    <input type="text" name="searchText" class="form-control" />
+    @*@Html.TextBox("searchText",new { @class="form-control" })*@
+
+    <label>Статус відправлення (-1,-2, 1)</label>
+    @*@Html.TextBox("state",new { @class="form-control" })*@
+    <select name="state" class="form-select">
+        <option selected value="1">1</option>
+        <option value="-1">-1</option>
+        <option value="-2">-2</option>
+    </select>
+
+    @*<label>дата з:</label>
+    <input type="datetime" name="DATEFROM" />
+    <label> по:</label>
+    <input type="datetime" name="DATETO" />*@
+
+    <div class="row mt-4">
+        <div class="col-3">
+             <button class="btn btn-success" type="submit"> Пошук </button>
+        </div>
+        <div class="col-7"></div>
+        <div class="col-auto">
+            <button form="download-form" class="btn btn-primary" type="submit">Завантажити в Excel</button>
+        </div>
+    </div>
+</form>
+
+<form id="download-form" asp-action="DownloadToExcel" method="post" />
+
+
+<table class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id пакету відправлення</th>
+            <th>ШКІ</th>
+            <th>Дані відправлення</th>
+            <th>Дата створення</th>
+            <th>Статус відправлення</th>
+            <th>Повідомлення коду відправлення</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ExportApi item in Model.ExportApis)
+        {
+
+            <tr>
+                <td>@item.File_Id</td>
+                <td>@item.Barcode</td>
+                <td>@item.DataStr</td>
+                <td>@item.Dateins</td>
+                <td>@item.State</td>
+                <td>@item.Message</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center align-content-center">
+    <page-link page-model="Model.PageViewModel" page-action="IndexTT"></page-link>
+</div>
+@section Scripts{
+    <script>
+        // Get the input elements
+        const fileIdInput = document.getElementById('fileId');
+        const searchTextInput = document.getElementById('searchText');
+        const stateSelect = document.getElementById('state');
+
+        // Set the initial values from localStorage if they exist
+        fileIdInput.value = localStorage.getItem('fileId') || '';
+        searchTextInput.value = localStorage.getItem('searchText') || '';
+        stateSelect.value = localStorage.getItem('state') || '1';
+
+        // Save the input values to localStorage on change
+        fileIdInput.addEventListener('input', () => {
+            localStorage.setItem('fileId', fileIdInput.value);
+        });
+
+        searchTextInput.addEventListener('input', () => {
+            localStorage.setItem('searchText', searchTextInput.value);
+        });
+
+        stateSelect.addEventListener('change', () => {
+            localStorage.setItem('state', stateSelect.value);
+        });
+    </script>
+}
+

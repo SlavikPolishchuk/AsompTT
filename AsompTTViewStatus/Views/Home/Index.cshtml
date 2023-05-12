@@ -1,0 +1,49 @@
+﻿@model List<ExportApi>
+
+
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th {
+        height: 70px;
+    }
+</style>
+
+<h1>ExportApi</h1>
+
+
+
+
+<table style="width:100%">
+    <thead>
+        <tr>
+            <th>File_Id</th>
+            <th>Barcode</th>
+            <th>DataStr</th>
+            <th>Dateins</th>
+            <th>State</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ExportApi item in Model)
+        {
+
+            <tr>
+                <td>@item.File_Id</td>
+                <td>@item.Barcode</td>
+                <td>@item.DataStr</td>
+                <td>@item.Dateins</td>
+                <td>@item.State</td>
+                <td>@item.Message</td>
+            </tr>
+        }
+    </tbody>
+</table>
