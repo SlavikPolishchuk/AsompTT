@@ -8,8 +8,14 @@ namespace AsompTTViewStatus.DAL
     {
         static string sqlText;
 
+        //Kiev test
+        //public static string ConnectionString =
+        //        " DATA SOURCE=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=50-oracle-b.ukrposhta.loc)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=kyasomp_dg)));User Id=API;Password=API123";
+
+
+        //Lviv
         public static string ConnectionString =
-                " DATA SOURCE=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=50-oracle-b.ukrposhta.loc)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=kyasomp_dg)));User Id=API;Password=API123";
+                " DATA SOURCE=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=50-oracle-a.ukrposhta.loc)(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=lvasomp_dg)));User Id=API;Password=API123";
 
 
 
