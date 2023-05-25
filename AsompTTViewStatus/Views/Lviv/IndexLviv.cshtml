@@ -1,9 +1,10 @@
 ﻿@model IndexViewModel
 @addTagHelper *, AsompTTViewStatus
 
-<h1>Asomp -> TT</h1>
 
-<form method="post" asp-controller="TT" asp-action="IndexTT">
+<h1>Львів Asomp -> TT</h1>
+
+<form method="post" asp-controller="Lviv" asp-action="IndexLviv">
     <label>Id пакету</label>
     <input type="text" name="fileId" class="form-control" />
     @* @Html.TextBox("fileId",new { @class="form-control" })*@
@@ -20,18 +21,16 @@
         <option value="-2">-2</option>
     </select>
 
-
     <div class="row mt-3">
         <div class="col-3">
             <label>дата з:</label>
-            <input type="date" id="d_f" name="dateFrom" value= @DateTime.Now.ToShortDateString() />
+            <input type="date" id="d_f" name="dateFrom" value=@DateTime.Now.ToShortDateString() />
         </div>
         <div class="col-auto">
             <label> по:</label>
             <input type="date" id="d_t" name="dateTo" value=@DateTime.Now.ToShortDateString() />
         </div>
     </div>
-
 
     <div class="row mt-4">
         <div class="col-3">
@@ -42,7 +41,6 @@
             <button form="download-form" class="btn btn-primary" type="submit">Завантажити в Excel</button>
         </div>
     </div>
-
 </form>
 
 <form id="download-form" asp-action="DownloadToExcel" method="post" />
@@ -76,7 +74,7 @@
 </table>
 
 <div class="d-flex justify-content-center align-content-center">
-    <page-link page-model="Model.PageViewModel" page-action="IndexTT"></page-link>
+    <page-link page-model="Model.PageViewModel" page-action="IndexLviv"></page-link>
 </div>
 @section Scripts{
     <script>
@@ -104,4 +102,5 @@
         });
     </script>
 }
+
 

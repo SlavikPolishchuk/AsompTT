@@ -16,7 +16,7 @@ namespace AsompTTViewStatus.Controllers
         public IActionResult Index()
         {
 
-            List<ExportApi> _exportApi = DAL.DAL.GetListAsrkFile();
+            List<ExportApi> _exportApi = DAL.DAL.GetListAsrkFile("TT", DateTime.Now, DateTime.Now);
 
 
             //if (!String.IsNullOrEmpty(_searchText))
