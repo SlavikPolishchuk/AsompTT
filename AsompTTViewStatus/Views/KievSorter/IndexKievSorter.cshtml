@@ -1,0 +1,111 @@
+﻿@using AsompTTViewStatus.Models;
+@model IndexViewModelSorter
+@addTagHelper *, AsompTTViewStatus
+
+<h1>АСОМП - сортер Київ</h1>
+
+<form method="post" asp-controller="KievSorter" asp-action="IndexKievSorter">
+    <label>Id мішка</label>
+    <input type="text" name="fileId" class="form-control" />
+ 
+
+    <label>ШКІ</label>
+    <input type="text" name="searchText" class="form-control" />
+   
+
+    <label>Маркер відправлення (-1, 1)</label>
+
+    <select name="state" class="form-select">
+        <option selected value="1">1</option>
+        <option value="-1">-1</option>
+    </select>
+
+
+    <div class="row mt-3">
+        <div class="col-3">
+            <label>дата з:</label>
+            <input type="date" id="d_f" name="dateFrom" value=@DateTime.Now.ToShortDateString() />
+        </div>
+        <div class="col-auto">
+            <label> по:</label>
+            <input type="date" id="d_t" name="dateTo" value=@DateTime.Now.ToShortDateString() />
+        </div>
+    </div>
+
+
+    <div class="row mt-4">
+        <div class="col-3">
+            <button class="btn btn-success" type="submit"> Пошук </button>
+        </div>
+        <div class="col-7"></div>
+        <div class="col-auto">
+            @*<button form="download-form" class="btn btn-primary" type="submit">Завантажити в Excel</button>*@
+        </div>
+    </div>
+
+</form>
+
+<form id="download-form" asp-action="DownloadToExcel" method="post" />
+
+
+<table class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>ID запису</th>
+            <th>ID мішка</th>
+            <th>ШКІ</th>
+            <th>номер коридора отриманого від таможні</th>
+            <th>індекс отримувача відправлення</th>
+            <th>Дата додання запису</th>
+            <th>Дата відправлення на сортер</th>
+            <th>Маркер відправлення -1(не відправлено), 1(відправлено)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ExportApiSorter item in Model.ExportApiSorters)
+        {
+
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.MrpId</td>
+                <td>@item.BarcodeMpv</td>
+                <td>@item.CustChanel</td>
+                <td>@item.IndexTo</td>
+                <td>@item.InsertDate</td>
+                <td>@item.SendDate</td>
+                <td>@item.IsSend</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-center align-content-center">
+    <page-link page-model="Model.PageViewModel" page-action="IndexTT"></page-link>
+</div>
+@section Scripts{
+    <script>
+        // Get the input elements
+        const fileIdInput = document.getElementById('fileId');
+        const searchTextInput = document.getElementById('searchText');
+        const stateSelect = document.getElementById('state');
+
+        // Set the initial values from localStorage if they exist
+        fileIdInput.value = localStorage.getItem('fileId') || '';
+        searchTextInput.value = localStorage.getItem('searchText') || '';
+        stateSelect.value = localStorage.getItem('state') || '1';
+
+        // Save the input values to localStorage on change
+        fileIdInput.addEventListener('input', () => {
+            localStorage.setItem('fileId', fileIdInput.value);
+        });
+
+        searchTextInput.addEventListener('input', () => {
+            localStorage.setItem('searchText', searchTextInput.value);
+        });
+
+        stateSelect.addEventListener('change', () => {
+            localStorage.setItem('state', stateSelect.value);
+        });
+    </script>
+}
+
